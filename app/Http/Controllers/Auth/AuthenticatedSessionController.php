@@ -28,6 +28,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        // Redirect back to the page where the user was trying to go before login
+        if ($request->has('redirect_to')) {
+            return redirect()->to($request->get('redirect_to'));
+        }
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

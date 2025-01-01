@@ -45,6 +45,11 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        // Redirect back to the page where the user was trying to go before login
+        if ($request->has('redirect_to')) {
+            return redirect()->to($request->get('redirect_to'));
+        }
+
         return redirect(route('dashboard', absolute: false));
     }
 }

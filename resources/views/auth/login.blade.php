@@ -5,6 +5,9 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
+        <!-- Hidden input field to store the current URL -->
+        <input type="hidden" name="redirect_to" value="{{ url()->previous() }}">
+
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />

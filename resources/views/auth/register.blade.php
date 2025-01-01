@@ -2,6 +2,9 @@
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
+        <!-- Hidden input field to store the current URL -->
+        <input type="hidden" name="redirect_to" value="{{ url()->previous() }}">
+        
         <!-- Name -->
         <div>
             <x-input-label for="name" :value="__('Name')" />
