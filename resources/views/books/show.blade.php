@@ -46,8 +46,16 @@
 
     <div class="row">
         <div class="col">
-            <div class="d-flex gap-3">
+            <div class="d-flex gap-3 align-items-center">
                 <h3>Reviews</h3>
+                <div>
+                    <select id="sort-reviews" class="form-select form-select-sm" onchange="location = this.value;">
+                        <option value="{{ request()->fullUrlWithQuery(['sort' => '']) }}" {{ request('sort') == '' ? 'selected' : '' }}>Sort by</option>
+                        <option value="{{ request()->fullUrlWithQuery(['sort' => 'highest_rating']) }}" {{ request('sort') == 'highest_rating' ? 'selected' : '' }}>Highest Rating</option>
+                        <option value="{{ request()->fullUrlWithQuery(['sort' => 'lowest_rating']) }}" {{ request('sort') == 'lowest_rating' ? 'selected' : '' }}>Lowest Rating</option>
+                        <option value="{{ request()->fullUrlWithQuery(['sort' => 'most_recent']) }}" {{ request('sort') == 'most_recent' ? 'selected' : '' }}>Most Recent</option>
+                    </select>
+                </div>                
                 <div class="float-end">
                     @auth
                         <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#reviewModal"
@@ -180,9 +188,16 @@
             reviewCount.text(`(${count})`); // Set the review count in brackets
         }
 
-
-
-
+        function sortReviews() {
+            const sortValue = document.getElementById('sort-reviews').value;
+            const url = new URL(window.location.href);
+            if (sortValue) {
+                url.searchParams.set('sort', sortValue);
+            } else {
+                url.searchParams.delete('sort');
+            }
+            window.location.href = url.toString();
+        }
 
         // Open review modal with pre-filled data for editing
         function editReview(id) {

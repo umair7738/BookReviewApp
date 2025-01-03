@@ -41,11 +41,25 @@ class BookController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(Book $book, Request $request)
     {
-        $reviews = $book->reviews()->with('user')->get();
+        $query = $book->reviews()->with('user');
+    
+        // Apply sorting
+        if ($request->has('sort')) {
+            if ($request->sort === 'highest_rating') {
+                $query->orderByDesc('rating');
+            } elseif ($request->sort === 'lowest_rating') {
+                $query->orderBy('rating');
+            } elseif ($request->sort === 'most_recent') {
+                $query->orderByDesc('created_at');
+            }
+        }
+    
+        $reviews = $query->get();
         return view('books.show', compact('book', 'reviews'));
     }
+    
 
     /**
      * Show the form for editing the specified resource.
