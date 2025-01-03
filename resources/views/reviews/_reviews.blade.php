@@ -1,6 +1,6 @@
 <!-- resources/views/reviews/_reviews.blade.php -->
 @foreach ($reviews as $review)
-<div class="mb-4" id="review-{{ $review->id }}">
+<div class="review mb-4" id="review-{{ $review->id }}">
     <strong>{{ $review->user->name }}</strong>
     <div class="d-flex gap-2 align-items-center">
         @for ($i = 1; $i <= 5; $i++)

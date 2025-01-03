@@ -13,7 +13,7 @@
     <div class="mb-3">
         <label for="rating" class="form-label">Rating</label>
         <div id="star-rating" class="star-rating">
-            <input type="hidden" id="rating" name="rating" value="{{ isset($review) ? $review->rating : 0 }}">
+            <input required type="hidden" id="rating" name="rating" value="{{ isset($review) ? $review->rating : 0 }}">
             @for ($i = 1; $i <= 5; $i++)
                 <span data-value="{{ $i }}" class="star-popup">&#9733;</span>
             @endfor

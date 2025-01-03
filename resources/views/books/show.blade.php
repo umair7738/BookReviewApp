@@ -49,7 +49,7 @@
             <div class="d-flex gap-3 align-items-center">
                 <h3>Reviews</h3>
                 <div>
-                    <select id="sort-reviews" class="form-select form-select-sm" onchange="location = this.value;">
+                    <select id="sort-reviews" class="{{ $reviews->count() <= 1 ? 'd-none' : '' }} form-select form-select-sm" onchange="location = this.value;">
                         <option value="{{ request()->fullUrlWithQuery(['sort' => '']) }}" {{ request('sort') == '' ? 'selected' : '' }}>Sort by</option>
                         <option value="{{ request()->fullUrlWithQuery(['sort' => 'highest_rating']) }}" {{ request('sort') == 'highest_rating' ? 'selected' : '' }}>Highest Rating</option>
                         <option value="{{ request()->fullUrlWithQuery(['sort' => 'lowest_rating']) }}" {{ request('sort') == 'lowest_rating' ? 'selected' : '' }}>Lowest Rating</option>
@@ -75,7 +75,7 @@
 
     <div id="reviews-list">
         @foreach ($reviews as $review)
-            <div class="mb-4" id="review-{{ $review->id }}">
+            <div class="review mb-4" id="review-{{ $review->id }}">
                 <strong>{{ $review->user->name }}</strong>
                 <div class="d-flex gap-2 align-items-center">
                     @for ($i = 1; $i <= 5; $i++)
@@ -257,7 +257,11 @@
                         $('#review-count').text(response.reviewCount);
                         const averageRating = response.averageRating || 0; // Default to 0 if undefined or null
                         $('#average-rating').text(averageRating.toFixed(1)); // Safely update average rating
-
+                        
+                        // Check if #sort-reviews exists, has the 'd-none' class, and if there are 2 or more reviews
+                        if ($('#sort-reviews').hasClass('d-none') && $('#reviews-list .review').length > 1) {
+                            $('#sort-reviews').removeClass('d-none'); // Remove 'd-none' to show #sort-reviews
+                        }
 
                         $('#reviewModal').modal('hide').attr('aria-hidden', 'true'); // Close modal
                         $('#reviewModalBody').empty();
@@ -316,6 +320,11 @@
                             $('#average-rating').text(averageRating2.toFixed(1));
 
                             updateStars();
+
+                            // Check if there are fewer than 2 reviews and hide #sort-reviews
+                            if ($('#reviews-list .review').length < 2) {
+                                $('#sort-reviews').addClass('d-none'); // Add 'd-none' to hide #sort-reviews
+                            }
                         } else {
                             toastr.error(response.message); // Show error message
                         }
