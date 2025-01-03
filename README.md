@@ -125,7 +125,7 @@ Create a pull request.
 Please ensure your code adheres to the project's coding standards and includes tests where applicable.
 
 ## License
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+BookReviewApp is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 Acknowledgements
 Laravel - The PHP framework used for building the backend.
