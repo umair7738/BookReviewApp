@@ -155,7 +155,7 @@ class ReviewController extends Controller
                 'message' => 'Review updated successfully!',
                 'reviews' => view('reviews._reviews', compact('reviews'))->render(),
                 'reviewCount' => $reviews->count(),
-                'averageRating' => $reviews->avg('rating'),
+                'averageRating' => $reviews->avg('rating') ?? 0,
             ]);
 
             // return redirect()->route('books.show', $review->book_id)->with('success', 'Review deleted!');

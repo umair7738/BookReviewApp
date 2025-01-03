@@ -114,11 +114,11 @@ header .auth-links a {
     margin: 2px;
 }
 
-#stars i {
+.star i {
     color: #FFD700;
 }
 
-#stars .fa-regular.fa-star {
+.star .fa-regular.fa-star {
     color: #ddd;
 }
 
