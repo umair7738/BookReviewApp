@@ -23,8 +23,7 @@ Welcome to the **Book Review App**! This is a web application built using **Lara
 ## Technologies Used
 
 - **Laravel** (Backend)
-- **Vue.js** (Frontend)
-- **Bootstrap** (UI Framework)
+- **Bootstrap** (Frontend & UI Framework)
 - **MySQL** (Database)
 - **npm** (For Frontend Dependencies)
 
